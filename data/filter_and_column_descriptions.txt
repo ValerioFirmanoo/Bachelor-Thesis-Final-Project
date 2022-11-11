@@ -1,0 +1,76 @@
+%%%%% FILTER AND COLUMN DESCRIPTIONS %%%%%
+2019-04 MP
+
+DATA FILTERS
+
+wholeCC=1 	only whole cell cycles are included, i.e. both birth and division were observed
+symmDivTolP=[0.4,0.6] 	tolerance range for symmetric division, here each daughter's area should be 40-60% of the parental area
+shiftManual=M9S,M9F 	only replicates with a shift from M9-slow to M9-fast media were included
+expfitBV2=[0.00,0.07] 	volume growth rate calculated as a single exponential over the entire cell cycle is limited between 0 and 0.07 min{-1} (9.9-Inf min doubling time)
+
+
+SMOOTHING FILTERS
+
+area=expfitA%s4_0  	area smoothed in lineage data by a single exponential using a 5-point sliding window
+L=expfitA%s4_0 	length smoothed in lineage data by a single exponential using a 5-point sliding window
+
+
+LINEAGE FILE COLUMNS
+
+1 	frame 	frame number at which image was captured
+2 	tTrans 	time from the shift at which image was captured
+3 	w 	width (um), calculated from area and length assuming spherocylindrical geometry: w = 2*(L-sqrt(L^2-(4-pi)*area))/(4-pi) 
+4 	L 	length (um)
+5 	growthRateL2_0	dL/dt*(1/L) calculated using a three-point sliding window, parent data NOT used for endpoints
+6 	area 	area (um^2)
+7 	growthRatearea2_0 	dA/dt*(1/A) (min^{-1}) calculated using a three-point sliding window, parent data NOT used for endpoints
+8 	V 	volume (um^3) calculated using w, L assuming spherocylindrical geometry: V = 4/3*pi*(w/2)^3 + pi*(L-w)*(w/2)^2
+9 	growthRateV2_0 	dV/dt*(1/V) (min^{-1}) calculated using a three point sliding window, parent data NOT used for endpoints
+10 	SA 	surface area (um^2) calculated using w, L assuming spheroclindrical geometry: SA = 4*pi*(w/2)^2 + pi*(L-w)*w
+11	growthRateSA2_0 	dSA/dt*(1/SA) (min^{-1}) calculated using a three point sliding window, parent data NOT used for endpoints
+12 	beta2SA_V_2_0 	dSA/dt*(1/V) (1/(um*min)) calculated using a three point sliding window, parent data NOT used for endpoints
+13 	Itot 	total fluorescence across segmented area (au)
+14 	xCM 	x centre of mass coord, uniformly weighted pixels (um)
+15	yCM 	y centre of mass coord, uniformly weighted pixels (um)
+16 	orientation 	angle of the cell's long axis from the x-axis (rad)
+
+
+FLAT FILE COLUMNS
+
+1 	frame0 	frame number at which first image of cell was captured
+2 	frame1 	frame number at which last image of cell was captured
+3 	t0Trans 	time from shift, when cell was born
+4 	t1Trans 	time from shift, when cell divided
+5 	divT 		interdivisional time. n.b. t1Trans-T0 = divT + time_between_frames
+6	w0 	width at birth (um), calculated from area and length assuming spherocylindrical geometry: w = 2*(L-sqrt(L^2-(4-pi)*area))/(4-pi)
+7 	w1 	width before division (um), calculated as above
+8 	meanw 	cell cycle mean width (um), calculated as above
+9 	L0 		length at birth (um)
+10 	L1 		length before division (um)
+11 	expfitBL0 	length at birth (um) extrapolated assuming exponential growth to -time_between_frames/2 before t0Trans
+12 	expfitBL1 	length before division (um) extrapolated to +time_between_frames/2 after t1Trans
+13 	expfitBL2 	length growth rate (min^{-1}) from exponential fitting of cell cycle
+14 	area0 	(um^2) same as for length
+15 	area1 	(um^2) same as for length
+16 	expfitBarea0 	(um^2) same as for length 	
+17 	expfitBarea1 	(um^2) same as for length
+18 	expfitBarea2 	(um^2) same as for length
+19 	V0 	(um^3) same as for length
+20 	V1 	(um^3) same as for length
+21 	expfitBV0 	(um^3) same as for length
+22 	expfitBV1 	(um^3) same as for length
+23 	expfitBV2 	(um^3) same as for length
+24 	SA0 	(um^2) same as for length
+25 	SA1 	(um^2) same as for length
+26 	expfitBSA0 	(um^2) same as for length
+27 	expfitBSA1 	(um^2) same as for length
+28 	expfitBSA2 	(um^2) same as for length
+29 	meanbeta2SA_V_4_0 	(1/(um*min)) average beta dSA/dt*(1/V), taken over the cell cycle, calculated using a 5-point sliding window, parent data NOT used in calculation 
+30 	Itot0 	total fluorescence (au) at birth
+31 	Itot1 	total fluorescence (au) before division
+32 	xCM0 	x centre of mass coord at birth, uniformly weighted pixels (um)
+33 	yCM0 	y centre of mass coord at birth, uniformly weighted pixels (um)
+34 	xCM1 	x centre of mass coord before division, uniformly weighted pixels (um)
+35 	yCM1 	y centre of mass coord before division, uniformly weighted pixels (um)
+36 	orientation0 	angle of the cell's long axis from the x-axis at birth (rad)
+37 	orientation1 	angle of the cell's long axis from the x-axis before division (rad)

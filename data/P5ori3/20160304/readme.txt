@@ -1,0 +1,21 @@
+REPLICATE: 20160304
+STRAIN: P5ori3
+ORIENTATION: left
+OVERNIGHT MEDIA: M9S
+SWITCH TIME (min): 540
+MEDIA: M9S,M9F
+TIME SHIFTED (min): 540
+COMMENTS: Incorrectly labelled in MOVIE header as P5ter3.
+
+FILTERS USED
+	t0: [140.000000,Inf]
+	symmDivTolP: [0.400000,0.600000]
+	wholeCC: 1
+	t1: [140.000000,Inf]
+	expfitBV2: [0.000000,0.070000]
+
+SMOOTHING METHOD USED: 1
+	area: expfitA%s4_0
+	L: expfitA%s4_0
+
+N_TOTAL: 128897
